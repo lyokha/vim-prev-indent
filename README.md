@@ -67,5 +67,5 @@ enters a character to align with. So, for example, in Insert mode the user
 must enter `<C-g>g` and then another character to proceed.
 
 Both `PrevIndent` and `AlignWith` commands should behave well for different
-settings of the *<Tab>* expansion.
+settings of the `<Tab>` expansion.
 
