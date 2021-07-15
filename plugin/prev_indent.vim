@@ -5,10 +5,10 @@
 " Usage:
 "   Command PrevIndent moves the line under the cursor to the previous
 "   indentation level. At the first sight, this command does not seem to be
-"   really helpful as soon as indentation levels in the most of the file types
-"   usually correspond to the value of the shiftwidth, and the desired effect
-"   can be easily achieved by pressing <C-d> repeatedly in Insert mode. But
-"   this is not always the case.
+"   any helpful as soon as indentation levels in the most of the file types
+"   usually correspond to the value of 'shiftwidth' and the desired effect can
+"   be easily achieved by pressing <C-d> repeatedly in Insert mode. But this
+"   is not always the case.
 "
 "   Command PrevIndent merely aligns the beginning of the current line with
 "   the first met line that lies above and starts from a less position.
@@ -54,9 +54,9 @@
 "
 "       nmap <silent> <C-k>g      :AlignWith<CR>
 "
-"   In both Insert and Normal modes command AlignWith will wait until the user
+"   In both Insert and Normal modes command AlignWith will wait till the user
 "   enters a character to align with. So, for example, in Insert mode the user
-"   must enter <C-g>g and then another character to proceed.
+"   must enter <C-g>g and then any other character to proceed.
 "
 "   Both PrevIndent and AlignWith commands should behave well for different
 "   settings of the <Tab> expansion.
