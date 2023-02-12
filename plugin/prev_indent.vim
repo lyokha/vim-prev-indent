@@ -71,7 +71,7 @@ let g:loaded_PrevIndentPlugin = 1
 function! s:prev_indent()
     let save_cursor = getpos('.')
     let save_winline = winline()
-    normal ^
+    noautocmd normal ^
     let start_pos = virtcol('.') - 1
     if start_pos == 0
         call setpos('.', save_cursor)
@@ -82,7 +82,7 @@ function! s:prev_indent()
     let subst = ''
     let pass = 0
     while line('.') > 1
-        normal k^
+        noautocmd normal k^
         if getline('.') =~ '^\s*$'
             continue
         endif
@@ -107,7 +107,7 @@ function! s:prev_indent()
     call setpos('.', save_cursor)
     let scroll = winline() - save_winline
     if scroll != 0
-        exe 'normal '.abs(scroll).(scroll > 0 ? '': '')
+        noautocmd exe 'normal '.abs(scroll).(scroll > 0 ? '': '')
         " by some reason scrolling may move cursor left if it was in the
         " rightmost position: restore it
         call setpos('.', save_cursor)
@@ -119,13 +119,13 @@ function! s:align_with(symb, ...)
     let save_cursor = getpos('.')
     let add_rstart_pos = getline('.') =~ '^\s*$' && col('.') == col('$') ?
                 \ 1 : 0
-    normal ^
+    noautocmd normal ^
     let start_pos = virtcol('.') - 1 + add_rstart_pos
     let rstart_pos = col('.') - 1 + add_rstart_pos
     let save_start_pos = 0
     let pass = 0
     while line('.') > 1
-        normal k
+        noautocmd normal k
         if getline('.') =~ '^\s*$'
             continue
         endif
@@ -138,9 +138,9 @@ function! s:align_with(symb, ...)
     endif
     let last_symb_match = (col('.') + add_rstart_pos >= col('$') - 1) &&
                 \ getline('.')[col('$') - 2] == a:symb
-    normal l
+    noautocmd normal l
     if add_rstart_pos == 1
-        normal l
+        noautocmd normal l
     endif
     let n_repeat = a:0 && a:1 > 0 ? a:1 : 1
     let save_n_repeat = n_repeat
@@ -149,18 +149,18 @@ function! s:align_with(symb, ...)
         let n_repeat -= 1
     endif
     if n_repeat > 0
-        exe 'normal '.n_repeat.'f'.a:symb
+        noautocmd exe 'normal '.n_repeat.'f'.a:symb
     endif
     let n_repeat = save_n_repeat
     if (col('.') == save_cursor1[2] &&
                 \ getline('.')[col('.') - 1] != a:symb) || last_symb_match
-        normal ^
+        noautocmd normal ^
         let save_cursor1 = getpos('.')
         if getline('.')[col('.') - 1] == a:symb
             let n_repeat -= 1
         endif
         if n_repeat > 0
-            exe 'normal '.n_repeat.'f'.a:symb
+            noautocmd exe 'normal '.n_repeat.'f'.a:symb
         endif
         if col('.') == save_cursor1[2] && n_repeat > 0
             let save_start_pos = 1
@@ -183,7 +183,7 @@ function! s:align_with(symb, ...)
         exe 's/^\s*/\=repeat(" ", '.(start_pos + offset).')/'
     endif
     retab!
-    normal ^
+    noautocmd normal ^
     let save_cursor[2] += col('.') - 1 - rstart_pos + add_rstart_pos
     call setpos('.', save_cursor)
     return ''
